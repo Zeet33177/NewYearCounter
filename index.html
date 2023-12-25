@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Year Counter</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px 13px;
+        background-color: #121317;
+        color: white;
+      }
+      h1 {
+        color: rgb(0, 213, 255);
+        font-size: 10vw;
+        margin-bottom: -2.5vw;
+      }
+      p {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 5vw;
+        font-weight: 700;
+        margin-bottom: 4vw;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+        gap: 2rem;
+        width: 100%;
+      }
+      .container .bx {
+        border-radius: 10px;
+        height: 14.25rem;
+        background: #21242b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-bottom: 10px solid rgb(0, 213, 255);
+      }
+      .container .bx .caption {
+        color: #b2b5ba;
+      }
+      .container .bx .counter {
+        color: #fff;
+        font-size: 5rem;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>2024</h1>
+    <p id="chg">New Year Countdown</p>
+    <div class="container">
+      <div class="bx">
+        <div id="day" class="counter"></div>
+        <div class="caption">Days</div>
+      </div>
+      <div class="bx">
+        <div id="hour" class="counter"></div>
+        <div class="caption">Hours</div>
+      </div>
+      <div class="bx">
+        <div id="minute" class="counter"></div>
+        <div class="caption">Minutes</div>
+      </div>
+      <div class="bx">
+        <div id="sec" class="counter"></div>
+        <div class="caption">Seconds</div>
+      </div>
+    </div>
+  </body>
+  <script src="confetti.js"></script>
+  <script>
+    let targetDate = new Date("Jan 1, 2024 00:00:00").getTime();
+    function newYear() {
+      let current = new Date().getTime();
+      diff = targetDate - current;
+      if (diff === 0) {
+        wish();
+      } else {
+        let sec = 1000;
+        let min = sec * 60;
+        let hour = min * 60;
+        let day = hour * 24;
+        let d = Math.floor(diff / day);
+        let h = Math.floor((diff % day) / hour);
+        let m = Math.floor((diff % hour) / min);
+        let s = Math.floor((diff % min) / sec);
+
+        document.getElementById("day").innerText = d;
+        document.getElementById("hour").innerText = h;
+        document.getElementById("minute").innerText = m;
+        document.getElementById("sec").innerText = s;
+      }
+    }
+
+    setInterval(function () {
+      newYear();
+    }, 1000);
+    function wish() {
+      document.getElementById("chg").innerText = "Happy New Year🎉";
+      document.querySelector(".bx").remove();
+      document.querySelector(".bx").remove();
+      document.querySelector(".bx").remove();
+      document.querySelector(".bx").remove();
+      startConfetti();
+    }
+  </script>
+</html>
